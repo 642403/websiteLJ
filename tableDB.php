@@ -33,12 +33,13 @@ if ($conn->connect_error) {
 } 
 
 // sql to create table
-$sql = "CREATE TABLE users (
-id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-firstname VARCHAR(30) NOT NULL,
-lastname VARCHAR(30) NOT NULL,
-reg_date TIMESTAMP
-)";
+$sql = "CREATE TABLE `users` (
+  `UserID` int(11) NOT NULL,
+  `Uname` text NOT NULL,
+  `Pword` text NOT NULL,
+  `Role` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+";
 
 if ($conn->query($sql) === TRUE) {
     echo "Table MyGuests created successfully";
