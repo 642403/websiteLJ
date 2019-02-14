@@ -42,10 +42,70 @@ $sql = "CREATE TABLE `users` (
 ";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table MyGuests created successfully";
+    echo "Table users created successfully";
 } else {
     echo "Error creating table: " . $conn->error;
 }
 
 $conn->close();
 ?>
+
+<?php
+
+	   include("config.php");
+
+	   session_start();
+
+	
+
+	   
+
+	   if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+	      // username and password sent from form 
+
+	       
+
+	      $myuname = mysqli_real_escape_string($db,$_POST['UserName']);
+
+	      $mypword = mysqli_real_escape_string($db,$_POST['Password']);
+
+		  
+
+	      $sql = "SELECT UserID FROM users WHERE Uname = '$myuname' and Pword = '$mypword'";
+
+	      $result = mysqli_query($db,$sql);
+
+	      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+	      $active = $row['active'];
+
+	      
+
+	      $count = mysqli_num_rows($result);
+
+	      
+
+	      // If result matched $myusername and $mypassword, table row must be 1 row
+
+			
+
+	      if($count == 1) {
+
+	         //$session_register("myuname");
+
+			 $_SESSION['UserName']= $myuname;
+
+	         $_SESSION['login_user'] = $myuname;
+
+	         header("location: Homepage.html");
+
+	      }else {
+
+	         $error = "Your Login Name or Password is invalid";
+
+	      }
+
+	   }
+
+	?>
